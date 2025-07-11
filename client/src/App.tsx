@@ -1,6 +1,6 @@
 import { useState } from "react";
-// import { io } from "socket.io-client";
-// const socket = io("http://localhost:8080");
+import { io } from "socket.io-client";
+const socket = io("http://localhost:8080");
 
 function App() {
   const [roomId, setRoomId] = useState("");
@@ -13,6 +13,8 @@ function App() {
       userName,
     };
     console.log(roomData);
+
+    socket.emit("join-room", roomData);
   };
 
   return (

@@ -17,6 +17,10 @@ const io = new Server(server, {
 
 io.on('connection', (socket) => {
   console.log(`User connected Successfully: ${socket.id}`);
+
+  socket.on('join-room', (roomData) => {
+    console.log(roomData);
+  });
 });
 
 server.listen(8080, () => {
