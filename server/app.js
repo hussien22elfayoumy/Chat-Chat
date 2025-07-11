@@ -19,7 +19,11 @@ io.on('connection', (socket) => {
   console.log(`User connected Successfully: ${socket.id}`);
 
   socket.on('join-room', (roomData) => {
-    console.log(roomData);
+    console.log(`User ${roomData.userName} entertd room ${roomData.roomId}`);
+
+    socket.on('send-message', (message) => {
+      console.log(message);
+    });
   });
 });
 
