@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import Chat from "./components/chat";
 import JoinRoom from "./components/join-room";
 
-const socket = io("http://localhost:8080");
+const socket = io(import.meta.env.VITE_SOCKET_URL);
 
 function App() {
   const [roomId, setRoomId] = useState("");
