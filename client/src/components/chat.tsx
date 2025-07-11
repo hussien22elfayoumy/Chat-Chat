@@ -6,6 +6,7 @@ type MessageData = {
   userName: string;
   roomId: string;
   time: string;
+  isCurrentUserMessage?: boolean;
 };
 
 type ChatProps = {
@@ -32,7 +33,7 @@ export default function Chat({ userName, socket, roomId }: ChatProps) {
     socket.emit("send-message", messageData);
 
     // To show the currend user messages
-    setMessagesList((prevList) => [...prevList, messageData]);
+    setMessagesList((prevList) => [...prevList, { ...messageData, isCurrentUserMessage: true }]);
 
     setMessage("");
   };
@@ -57,18 +58,24 @@ export default function Chat({ userName, socket, roomId }: ChatProps) {
 
   return (
     <section className="flex h-[70vh] w-full max-w-lg flex-col rounded-lg border-2 border-indigo-600 p-2">
-      <div className="scrollbar-hide flex-1 space-y-4 overflow-y-auto p-4">
+      <div className="scrollbar-hide flex-1 space-y-4 overflow-y-auto p-3.5">
         {messagesList.map((message, i) => {
-          const isCurrentUser = message.userName === userName;
+          const isCurrentUser = message?.isCurrentUserMessage;
 
           return (
             <div
               key={i}
               className={`flex items-start space-x-2 ${isCurrentUser ? "justify-end" : ""}`}
             >
+              {!isCurrentUser && (
+                <div className="flex size-8 items-center justify-center rounded-full bg-indigo-100 text-sm font-medium text-stone-700">
+                  {message.userName.charAt(0).toUpperCase()}
+                </div>
+              )}
+
               <div className="flex flex-col">
                 <div
-                  className={`max-w-md rounded-lg p-3 text-sm wrap-break-word ${
+                  className={`max-w-sm rounded-lg p-2.5 px-3 wrap-break-word ${
                     isCurrentUser ? "bg-indigo-500 text-indigo-50" : "bg-indigo-100 text-stone-700"
                   }`}
                 >
@@ -83,6 +90,12 @@ export default function Chat({ userName, socket, roomId }: ChatProps) {
                   </span>
                 </div>
               </div>
+
+              {isCurrentUser && (
+                <div className="flex size-8 items-center justify-center rounded-full bg-indigo-500 text-sm font-medium text-indigo-50">
+                  {message.userName.charAt(0).toUpperCase()}
+                </div>
+              )}
             </div>
           );
         })}

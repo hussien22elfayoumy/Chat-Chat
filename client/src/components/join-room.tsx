@@ -20,7 +20,7 @@ export default function JoinRoom({
           User name
         </label>
         <input
-          className="w-full rounded-md border-2 border-indigo-600 p-2 focus-visible:border-indigo-500 focus-visible:outline-none"
+          className="h-11 w-full rounded-lg border-2 border-indigo-600 p-2 focus-visible:border-indigo-500 focus-visible:outline-none"
           type="text"
           placeholder="Username"
           id="userName"
@@ -35,7 +35,7 @@ export default function JoinRoom({
           Room Id
         </label>
         <input
-          className="w-full rounded-md border-2 border-indigo-600 p-2 focus-visible:border-indigo-500 focus-visible:outline-none"
+          className="h-11 w-full rounded-lg border-2 border-indigo-600 p-2 focus-visible:border-indigo-500 focus-visible:outline-none"
           type="text"
           placeholder="roomId"
           id="roomId"
@@ -47,7 +47,7 @@ export default function JoinRoom({
 
       <button
         onClick={onJoin}
-        className="cursor-pointer rounded-md bg-indigo-600 p-2 hover:bg-indigo-500"
+        className="mt-3 h-11 cursor-pointer rounded-lg bg-indigo-600 p-2 hover:bg-indigo-500"
       >
         Join Room
       </button>
