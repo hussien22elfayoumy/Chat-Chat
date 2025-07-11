@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 const socket = io("http://localhost:8080");
 
@@ -14,7 +14,6 @@ function App() {
       roomId,
       userName,
     };
-    console.log(roomData);
 
     socket.emit("join-room", roomData);
     setShowMessages(true);
@@ -22,11 +21,23 @@ function App() {
 
   const handleSendMessages = () => {
     if (!message) return;
-    console.log(message);
 
-    socket.emit("send-message", message);
+    const messageData = {
+      message,
+      userName,
+      roomId,
+      time: `${new Date(Date.now()).getHours()}:${new Date(Date.now()).getMinutes()}`,
+    };
+
+    socket.emit("send-message", messageData);
     setMessage("");
   };
+
+  useEffect(() => {
+    socket.on("receive-message", (messageData) => {
+      console.log(messageData);
+    });
+  }, [socket]);
 
   return (
     <main className="flex h-screen flex-col items-center justify-center p-4">

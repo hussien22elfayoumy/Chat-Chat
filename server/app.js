@@ -19,11 +19,19 @@ io.on('connection', (socket) => {
   console.log(`User connected Successfully: ${socket.id}`);
 
   socket.on('join-room', (roomData) => {
-    console.log(`User ${roomData.userName} entertd room ${roomData.roomId}`);
+    socket.join(roomData.roomId);
+    console.log(
+      `User: ${roomData.userName} with id: ${socket.id} entertd room: ${roomData.roomId}`
+    );
+  });
 
-    socket.on('send-message', (message) => {
-      console.log(message);
-    });
+  socket.on('send-message', (messageData) => {
+    console.log(messageData);
+    socket.to(messageData.roomId).emit('receive-message', messageData);
+  });
+
+  socket.on('disconnect', () => {
+    console.log(`User: ${socket.id} disconnected`);
   });
 });
 
