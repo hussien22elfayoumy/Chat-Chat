@@ -37,6 +37,10 @@ io.on('connection', (socket) => {
   });
 });
 
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
 const port = process.env.PORT || 8000;
 
 server.listen(port, () => {
