@@ -56,7 +56,7 @@ How to Run the code
 - Ensure the backend server is running on the designated port.
 - Start the frontend using `yarn dev`.
 - Open the application in your browser and explore the pages.
-- Enjoy Chatting!!!
+- Enjoy Chatting!!!!!!!!
 
 ## For the user
 
